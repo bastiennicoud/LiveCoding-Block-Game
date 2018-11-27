@@ -15,9 +15,12 @@ let gameFunctions = (p: p5) => {
   /**
    * Loads the game
    */
-  let blockGame = new BlockGame({
+  let blockGame = new BlockGame(
+    p,
+    {
     el: document.getElementById('block-game'),
   })
+
 }
 
 let game = new p5(gameFunctions)

@@ -1,7 +1,7 @@
 /**
  * Blank element in the game
  */
-export class Blang {
+export class Blank {
 
   private sprite: string
 

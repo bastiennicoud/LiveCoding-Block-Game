@@ -3,17 +3,55 @@
  *
  * @author Bastien Nicoud
  */
+import * as p5 from 'p5'
+import LevelLoader from './LevelLoader'
+
 export default class BlockGame {
 
-  config: Object;
+  p: p5
+  config: Object
+  levelLoader: LevelLoader
 
-  constructor (config: Object) {
+  constructor (p: p5, config: Object) {
+    this.p = p
     this.config = config
+    this.levelLoader = new LevelLoader()
+
+    // Listen p5 events
+    this.p.preload = () => {
+      this.preload()
+    }
+
+    this.p.setup = () => {
+      this.setup()
+    }
+
+    this.p.draw = () => {
+      this.draw()
+    }
+
+    this.p.keyPressed = () => {
+      this.keyPressed(p.keyCode)
+    }
   }
 
-  // This method will be trigerd by the livecoding platform to bootstrap the app
-  load (initiationLevel: Object) {
-    console.log(initiationLevel)
+  /**
+   * Preload the assets
+   */
+  preload () {
+
+  }
+
+  setup () {
+
+  }
+
+  draw () {
+
+  }
+
+  keyPressed (keyCode: number) {
+
   }
 
 }
