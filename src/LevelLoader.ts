@@ -1,4 +1,5 @@
 import Level from './levels/Level.interface'
+import InitiationLevel from './levels/InitiationLevel';
 
 /**
  * The level loader load a level from the levels folder
@@ -6,12 +7,10 @@ import Level from './levels/Level.interface'
  */
 export default class LevelLoader {
 
-  constructor () {
+  level: Level
 
-  }
-
-  loadLevel (level: Level) {
-    // ..load the level
+  loadLevel (level: Level = new InitiationLevel) {
+    this.level = level
   }
 
 }

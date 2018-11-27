@@ -17,29 +17,19 @@ export default class BlockGame {
     this.config = config
     this.levelLoader = new LevelLoader()
 
-    // Listen p5 events
-    this.p.preload = () => {
-      this.preload()
-    }
+    // Ling game to p5 methods
+    this.p.preload = () => this.preload()
+    this.p.setup = () => this.setup()
+    this.p.draw = () => this.draw()
+    this.p.keyPressed = () => this.keyPressed(p.keyCode)
 
-    this.p.setup = () => {
-      this.setup()
-    }
-
-    this.p.draw = () => {
-      this.draw()
-    }
-
-    this.p.keyPressed = () => {
-      this.keyPressed(p.keyCode)
-    }
   }
 
   /**
    * Preload the assets
    */
   preload () {
-
+    this.levelLoader.loadLevel()
   }
 
   setup () {
