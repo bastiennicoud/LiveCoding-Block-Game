@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "target": "es6",
+    "pretty": "true",
+    "outFile": "./dist/game.js",
+    "removeComments": true
+  },
+  "files": [
+    "game.ts"
+  ]
+}
