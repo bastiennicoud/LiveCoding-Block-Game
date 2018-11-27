@@ -1,0 +1,23 @@
+{
+  "name": "Block",
+  "description": "A basic block game for experimentations.",
+  "paths": {
+    "game": "/dist/game.js",
+    "assets": "/assets",
+    "interpreters": {
+      "php": "interpreters/php.php",
+      "ruby": "interpreters/ruby.rb",
+      "javascript": "interpreters/javascript.js"
+    },
+    "instructions": [
+      {
+        "name": "Commandes",
+        "path": "instructions/commands.md"
+      },
+      {
+        "name": "Consignes",
+        "path": "instructions/readme.md"
+      }
+    ]
+  }
+}
