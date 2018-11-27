@@ -17,10 +17,6 @@ let gameFunctions = (p: p5) => {
    */
   let blockGame = new BlockGame({
     el: document.getElementById('block-game'),
-    size: {
-      x: 768,
-      y: 768
-    }
   })
 }
 
