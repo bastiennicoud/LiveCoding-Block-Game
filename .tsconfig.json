@@ -1,11 +1,11 @@
 {
   "compilerOptions": {
-    "target": "es6",
     "pretty": "true",
-    "outFile": "./dist/game.js",
-    "removeComments": true
-  },
-  "files": [
-    "game.ts"
-  ]
+    "removeComments": true,
+    "outDir": "./dist/",
+    "noImplicitAny": true,
+    "module": "es6",
+    "target": "es5",
+    "allowJs": true
+  }
 }

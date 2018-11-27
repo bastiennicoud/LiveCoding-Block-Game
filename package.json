@@ -1,0 +1,19 @@
+{
+  "name": "livecoding-block-game",
+  "version": "1.0.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bastiennicoud/LiveCoding-Block-Game"
+  },
+  "description": "A simple block game for experimentations",
+  "scripts": {
+    "build": "webpack"
+  },
+  "author": "Bastien Nicoud",
+  "license": "ISC",
+  "devDependencies": {
+    "ts-loader": "^5.3.1",
+    "typescript": "^3.1.6",
+    "webpack": "^4.26.1"
+  }
+}
