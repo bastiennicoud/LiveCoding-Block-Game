@@ -1,4 +1,5 @@
 {
   "eslint.enable": false,
-  "phpcs.enable": false
+  "phpcs.enable": false,
+  "phpcs.executablePath": "~/.composer/vendor/bin/phpcs"
 }
