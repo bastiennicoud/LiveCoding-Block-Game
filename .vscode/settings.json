@@ -1,6 +1,5 @@
 {
   "eslint.enable": false,
   "phpcs.enable": false,
-  "phpcs.executablePath": "~/.composer/vendor/bin/phpcs",
   "python.pythonPath": "/usr/local/bin/python3"
 }
