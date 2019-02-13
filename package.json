@@ -7,16 +7,15 @@
   },
   "description": "A simple block game for experimentations",
   "scripts": {
-    "build": "webpack --mode production",
-    "dev": "webpack --mode development"
+    "build": "rollup -c",
+    "dev": "rollup -c --watch"
   },
   "author": "Bastien Nicoud",
-  "license": "ISC",
   "devDependencies": {
-    "ts-loader": "^5.3.1",
-    "typescript": "^3.1.6",
-    "webpack": "^4.26.1",
-    "webpack-cli": "^3.1.2"
+    "rollup": "^1.1.2",
+    "rollup-plugin-typescript": "^1.0.0",
+    "tslib": "^1.9.3",
+    "typescript": "^3.3.3"
   },
   "dependencies": {
     "@types/p5": "^0.7.1",
