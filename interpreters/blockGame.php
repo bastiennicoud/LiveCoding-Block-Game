@@ -5,10 +5,12 @@
  */
 class Game {
 
-    public function sendCommand ($command)
+    public static function sendCommand ($command)
     {
         $response = Engine::send($command);
         Engine::send("jai recu une reponce du jeux : $response");
     }
 
 }
+
+?>
