@@ -22,6 +22,7 @@ export class Game {
 
   public executeGameCommand (command: string) {
     console.log(`Command to execute : ${command}`)
+    this.el.innerText = command
     return true
   }
 

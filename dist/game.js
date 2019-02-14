@@ -1,1 +1,1 @@
-class Game{constructor(el,assetsPath){this.el=el,this.assetsPath=assetsPath,this.el.style.backgroundColor="#d35400",console.log("Block game constructor called")}executeGameCommand(command){return console.log(`Command to execute : ${command}`),!0}}export{Game};
+class Game{constructor(el,assetsPath){this.el=el,this.assetsPath=assetsPath,this.el.style.backgroundColor="#d35400",console.log("Block game constructor called")}executeGameCommand(command){return console.log(`Command to execute : ${command}`),this.el.innerText=command,!0}}export{Game};
