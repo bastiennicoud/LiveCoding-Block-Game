@@ -1,23 +1,28 @@
 {
   "name": "Block",
   "description": "A basic block game for experimentations.",
-  "paths": {
-    "game": "/dist/game.js",
-    "assets": "/assets",
-    "interpreters": {
-      "php": "interpreters/php.php",
-      "ruby": "interpreters/ruby.rb",
-      "javascript": "interpreters/javascript.js"
+  "data": {
+    "libraries": [
+      { "cdn": true, "url": "https://tutu.com/toto" }
+    ],
+    "game": "game.js",
+    "assets": "assets"
+  },
+  "interpreters": {
+    "php": "interpreters/blockGame.php",
+    "ruby": "interpreters/blockGame.rb",
+    "javascript": "interpreters/blockGame.js"
+  },
+  "instructions": [
+    {
+      "name": "Commandes",
+      "description": "Game commands index.",
+      "path": "instructions/commands.md"
     },
-    "instructions": [
-      {
-        "name": "Commandes",
-        "path": "instructions/commands.md"
-      },
-      {
-        "name": "Consignes",
-        "path": "instructions/readme.md"
-      }
-    ]
-  }
+    {
+      "name": "Instructions",
+      "description": "Instructions to finish the exercice.",
+      "path": "instructions/readme.md"
+    }
+  ]
 }

@@ -1,4 +1,5 @@
-import typescript from 'rollup-plugin-typescript';
+import typescript from 'rollup-plugin-typescript'
+import { terser } from "rollup-plugin-terser"
 
 /**
  * Rollup configuration
@@ -7,7 +8,12 @@ import typescript from 'rollup-plugin-typescript';
 export default {
   input: 'src/main.ts',
   plugins: [
-    typescript()
+    // Typescript plugin to convert typescript to ES2016s
+    typescript(),
+    // Terser plugin to minify code
+    terser({
+      mangle: false
+    })
   ],
   output: {
     file: 'dist/game.mjs',
