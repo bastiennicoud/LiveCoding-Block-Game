@@ -6,7 +6,7 @@ import { terser } from "rollup-plugin-terser"
  * @author Bastien Nicoud
  */
 export default {
-  input: 'src/main.ts',
+  input: 'src/Game.ts',
   plugins: [
     // Typescript plugin to convert typescript to ES2016s
     typescript(),
@@ -16,7 +16,7 @@ export default {
     })
   ],
   output: {
-    file: 'dist/game.mjs',
+    file: 'dist/game.js',
     format: 'esm'
   }
 };
