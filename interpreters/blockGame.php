@@ -5,15 +5,10 @@
  */
 class Game {
 
-    public function __construct ()
+    public function sendCommand ($command)
     {
-
-    }
-
-    public function loadLevel ($name)
-    {
-        $response = $engine->send("game.levelLoader.load('$name')");
-        return $response;
+        $response = Engine::send($command);
+        Engine::send("jai recu une reponce du jeux : $response");
     }
 
 }
