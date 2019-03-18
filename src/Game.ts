@@ -1,3 +1,5 @@
+import { assets } from './Assets'
+
 /**
  * Game.ts
  *
@@ -21,11 +23,10 @@ export class Game {
     this.height = this.el.offsetHeight
     this.width = this.el.offsetWidth
 
-    this.el.style.backgroundColor = '#95afc0'
-
     console.log(`Is WebGL supported : ${PIXI.utils.isWebGLSupported()}`)
 
     this.createApplication()
+    this.load()
 
   }
 
@@ -36,10 +37,41 @@ export class Game {
     // Pixi instanciation
     this.app = new PIXI.Application({
       width: this.width,
-      height: this.height
+      height: this.height,
+      resolution: window.devicePixelRatio,
+      autoResize: true,
+      backgroundColor: 0x9809856
     })
     // Append the pixi canvas th the element
     this.el.appendChild(this.app.view)
+  }
+
+  private load() {
+    PIXI
+      .loader
+      .add([
+        { name: 'wall', url: `${this.assetsPath}/wall.png` },
+        { name: 'octocat', url: `${this.assetsPath}/octocat.png` }
+      ])
+      .on('progress', this.loaderProgress)
+      .load(this.setup)
+  }
+
+  /**
+   * Handle pixi loading event and update loader
+   */
+  private loaderProgress(loader: PIXI.loaders.Loader, resource: PIXI.loaders.Resource) {
+    console.log(`Loaded : ${resource.name}`)
+    console.log(`Loading progress : ${loader.progress}%`)
+  }
+
+  /**
+   * When all resources are loaded, setup the game
+   */
+  private setup() {
+    // Create sprites
+    let wall = new PIXI.Sprite(PIXI.loader.resources['wall'].texture)
+    this.app.stage.addChild(wall)
   }
 
   /**
