@@ -22,6 +22,68 @@ function __awaiter(thisArg, _arguments, P, generator) {
     });
 }
 
+class Map {
+}
+//# sourceMappingURL=Map.js.map
+
+class BaseMap extends Map {
+    constructor() {
+        super();
+        this.map = [
+            [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+            [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+            [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1],
+            [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+        ];
+        this.spritesAssociations = {
+            0: null,
+            1: 'wall',
+            2: 'octocat'
+        };
+    }
+}
+//# sourceMappingURL=BaseMap.js.map
+
+class MapManager {
+    constructor(app) {
+        this.app = app;
+        this.sprites = {};
+    }
+    loadMap(map) {
+        console.log(this.app.view.height);
+        let mapSize = map.map.length;
+        let spriteSize = (this.app.view.height / window.devicePixelRatio) / mapSize;
+        map.map.forEach((line, lineKey) => {
+            line.forEach((element, columnKey) => {
+                if (columnKey == 0) {
+                    this.sprites[lineKey] = {};
+                }
+                if (map.spritesAssociations[element]) {
+                    let sprite = new PIXI.Sprite(PIXI.loader.resources[map.spritesAssociations[element]].texture);
+                    sprite.width = spriteSize;
+                    sprite.height = spriteSize;
+                    sprite.position.set(columnKey * spriteSize, lineKey * spriteSize);
+                    this.sprites[lineKey][columnKey] = sprite;
+                    this.app.stage.addChild(this.sprites[lineKey][columnKey]);
+                }
+                else {
+                    this.sprites[lineKey][columnKey] = null;
+                }
+            });
+        });
+    }
+}
+
+let app;
+let mapManager;
 class Game {
     constructor(el, assetsPath) {
         this.el = el;
@@ -33,14 +95,14 @@ class Game {
         this.load();
     }
     createApplication() {
-        this.app = new PIXI.Application({
+        app = new PIXI.Application({
             width: this.width,
             height: this.height,
             resolution: window.devicePixelRatio,
             autoResize: true,
             backgroundColor: 0x9809856
         });
-        this.el.appendChild(this.app.view);
+        this.el.appendChild(app.view);
     }
     load() {
         PIXI
@@ -57,8 +119,8 @@ class Game {
         console.log(`Loading progress : ${loader.progress}%`);
     }
     setup() {
-        let wall = new PIXI.Sprite(PIXI.loader.resources['wall'].texture);
-        this.app.stage.addChild(wall);
+        mapManager = new MapManager(app);
+        mapManager.loadMap(new BaseMap());
     }
     executeGameCommand(command) {
         return __awaiter(this, void 0, void 0, function* () {

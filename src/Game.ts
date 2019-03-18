@@ -1,4 +1,8 @@
-import { assets } from './Assets'
+import { BaseMap } from './maps/BaseMap';
+import { MapManager } from './MapManager';
+
+let app: PIXI.Application
+let mapManager: MapManager
 
 /**
  * Game.ts
@@ -14,7 +18,7 @@ export class Game {
   private height: number
   private width: number
 
-  private app: PIXI.Application
+  // private app: PIXI.Application
 
   constructor (el: HTMLElement, assetsPath: string) {
 
@@ -35,7 +39,7 @@ export class Game {
    */
   private createApplication() {
     // Pixi instanciation
-    this.app = new PIXI.Application({
+    app = new PIXI.Application({
       width: this.width,
       height: this.height,
       resolution: window.devicePixelRatio,
@@ -43,7 +47,7 @@ export class Game {
       backgroundColor: 0x9809856
     })
     // Append the pixi canvas th the element
-    this.el.appendChild(this.app.view)
+    this.el.appendChild(app.view)
   }
 
   private load() {
@@ -69,9 +73,11 @@ export class Game {
    * When all resources are loaded, setup the game
    */
   private setup() {
-    // Create sprites
-    let wall = new PIXI.Sprite(PIXI.loader.resources['wall'].texture)
-    this.app.stage.addChild(wall)
+    // Load a map
+    // Load the sprites of the map
+    // Generate the map
+    mapManager = new MapManager(app)
+    mapManager.loadMap(new BaseMap())
   }
 
   /**
