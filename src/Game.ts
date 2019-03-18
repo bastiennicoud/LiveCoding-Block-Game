@@ -17,10 +17,16 @@ export class Game {
     this.el.style.backgroundColor = '#d35400'
 
     console.log('Block game constructor called')
+    PIXI.utils.sayHello('Hello from pixi')
+    console.log(PIXI.utils.isWebGLSupported())
 
   }
 
-  public executeGameCommand (command: string) {
+  /**
+   * Execute commands from the processor in the game
+   * @param command the content of the command (sended by the processor)
+   */
+  public async executeGameCommand (command: string) {
     console.log(`Command to execute : ${command}`)
     this.el.innerText = command
     return true

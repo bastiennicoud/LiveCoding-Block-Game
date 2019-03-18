@@ -11,9 +11,9 @@ export default {
     // Typescript plugin to convert typescript to ES2016s
     typescript(),
     // Terser plugin to minify code
-    terser({
+    /* terser({
       mangle: false
-    })
+    }) */
   ],
   output: {
     file: 'dist/game.js',
