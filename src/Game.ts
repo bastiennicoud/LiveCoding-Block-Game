@@ -44,7 +44,7 @@ export class Game {
       height: this.height,
       resolution: window.devicePixelRatio,
       autoResize: true,
-      backgroundColor: 0x9809856
+      backgroundColor: 0x999999
     })
     // Append the pixi canvas th the element
     this.el.appendChild(app.view)
@@ -72,12 +72,25 @@ export class Game {
   /**
    * When all resources are loaded, setup the game
    */
-  private setup() {
+  setup = () => {
     // Load a map
     // Load the sprites of the map
     // Generate the map
     mapManager = new MapManager(app)
     mapManager.loadMap(new BaseMap())
+
+    // Register key listener
+    console.log('registering event')
+    this.el.addEventListener('mouseover', (e) => {
+      window.addEventListener('keydown', this.keyPressed)
+    })
+    this.el.addEventListener('mouseout', (e) => {
+      window.removeEventListener('keydown', this.keyPressed)
+    })
+  }
+
+  keyPressed = (e) => {
+    mapManager.moveCharacter(e.key)
   }
 
   /**

@@ -56,11 +56,11 @@ class MapManager {
     constructor(app) {
         this.app = app;
         this.sprites = {};
+        this.characterPosition = { x: 0, y: 0 };
     }
     loadMap(map) {
-        console.log(this.app.view.height);
-        let mapSize = map.map.length;
-        let spriteSize = (this.app.view.height / window.devicePixelRatio) / mapSize;
+        this.mapSize = map.map.length;
+        this.spriteSize = (this.app.view.height / window.devicePixelRatio) / this.mapSize;
         map.map.forEach((line, lineKey) => {
             line.forEach((element, columnKey) => {
                 if (columnKey == 0) {
@@ -68,10 +68,14 @@ class MapManager {
                 }
                 if (map.spritesAssociations[element]) {
                     let sprite = new PIXI.Sprite(PIXI.loader.resources[map.spritesAssociations[element]].texture);
-                    sprite.width = spriteSize;
-                    sprite.height = spriteSize;
-                    sprite.position.set(columnKey * spriteSize, lineKey * spriteSize);
+                    sprite.width = this.spriteSize;
+                    sprite.height = this.spriteSize;
+                    this.calculateSpritePosition(sprite, lineKey, columnKey);
                     this.sprites[lineKey][columnKey] = sprite;
+                    if (map.spritesAssociations[element] == 'octocat') {
+                        this.characterPosition.x = columnKey;
+                        this.characterPosition.y = lineKey;
+                    }
                     this.app.stage.addChild(this.sprites[lineKey][columnKey]);
                 }
                 else {
@@ -80,12 +84,56 @@ class MapManager {
             });
         });
     }
+    moveCharacter(direction) {
+        console.log('movecharacter');
+        switch (direction) {
+            case 'ArrowLeft':
+                this.moveSprite(this.characterPosition.y, this.characterPosition.x, this.characterPosition.y, this.characterPosition.x - 1);
+                this.characterPosition.x--;
+                break;
+            case 'ArrowUp':
+                this.moveSprite(this.characterPosition.y, this.characterPosition.x, this.characterPosition.y - 1, this.characterPosition.x);
+                this.characterPosition.y--;
+                break;
+            case 'ArrowRight':
+                this.moveSprite(this.characterPosition.y, this.characterPosition.x, this.characterPosition.y, this.characterPosition.x + 1);
+                this.characterPosition.x++;
+                break;
+            case 'ArrowDown':
+                this.moveSprite(this.characterPosition.y, this.characterPosition.x, this.characterPosition.y + 1, this.characterPosition.x);
+                this.characterPosition.y++;
+                break;
+        }
+    }
+    moveSprite(oldLineKey, oldColumnKey, newLineKey, newColumnKey) {
+        let sprite = this.sprites[oldLineKey][oldColumnKey];
+        this.sprites[oldLineKey][oldColumnKey] = null;
+        this.sprites[newLineKey][newColumnKey] = sprite;
+        this.calculateSpritePosition(sprite, newLineKey, newColumnKey);
+    }
+    calculateSpritePosition(sprite, lineKey, columnKey) {
+        sprite.position.set(columnKey * this.spriteSize, lineKey * this.spriteSize);
+    }
 }
 
 let app;
 let mapManager;
 class Game {
     constructor(el, assetsPath) {
+        this.setup = () => {
+            mapManager = new MapManager(app);
+            mapManager.loadMap(new BaseMap());
+            console.log('registering event');
+            this.el.addEventListener('mouseover', (e) => {
+                window.addEventListener('keydown', this.keyPressed);
+            });
+            this.el.addEventListener('mouseout', (e) => {
+                window.removeEventListener('keydown', this.keyPressed);
+            });
+        };
+        this.keyPressed = (e) => {
+            mapManager.moveCharacter(e.key);
+        };
         this.el = el;
         this.assetsPath = assetsPath;
         this.height = this.el.offsetHeight;
@@ -100,7 +148,7 @@ class Game {
             height: this.height,
             resolution: window.devicePixelRatio,
             autoResize: true,
-            backgroundColor: 0x9809856
+            backgroundColor: 0x999999
         });
         this.el.appendChild(app.view);
     }
@@ -117,10 +165,6 @@ class Game {
     loaderProgress(loader, resource) {
         console.log(`Loaded : ${resource.name}`);
         console.log(`Loading progress : ${loader.progress}%`);
-    }
-    setup() {
-        mapManager = new MapManager(app);
-        mapManager.loadMap(new BaseMap());
     }
     executeGameCommand(command) {
         return __awaiter(this, void 0, void 0, function* () {
