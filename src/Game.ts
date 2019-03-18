@@ -9,17 +9,37 @@ export class Game {
 
   private assetsPath: string
 
+  private height: number
+  private width: number
+
+  private app: PIXI.Application
+
   constructor (el: HTMLElement, assetsPath: string) {
 
     this.el = el
     this.assetsPath = assetsPath
+    this.height = this.el.offsetHeight
+    this.width = this.el.offsetWidth
 
-    this.el.style.backgroundColor = '#d35400'
+    this.el.style.backgroundColor = '#95afc0'
 
-    console.log('Block game constructor called')
-    PIXI.utils.sayHello('Hello from pixi')
-    console.log(PIXI.utils.isWebGLSupported())
+    console.log(`Is WebGL supported : ${PIXI.utils.isWebGLSupported()}`)
 
+    this.createApplication()
+
+  }
+
+  /**
+   * Creates the pixi app
+   */
+  private createApplication() {
+    // Pixi instanciation
+    this.app = new PIXI.Application({
+      width: this.width,
+      height: this.height
+    })
+    // Append the pixi canvas th the element
+    this.el.appendChild(this.app.view)
   }
 
   /**
