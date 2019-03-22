@@ -20,10 +20,10 @@ export class Game {
 
   // private app: PIXI.Application
 
-  constructor (el: HTMLElement, assetsPath: string) {
+  constructor ({ element, assetsBasePath }) {
 
-    this.el = el
-    this.assetsPath = assetsPath
+    this.el = element
+    this.assetsPath = assetsBasePath
     this.height = this.el.offsetHeight
     this.width = this.el.offsetWidth
 

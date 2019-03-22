@@ -24,7 +24,6 @@ function __awaiter(thisArg, _arguments, P, generator) {
 
 class Map {
 }
-//# sourceMappingURL=Map.js.map
 
 class BaseMap extends Map {
     constructor() {
@@ -50,7 +49,6 @@ class BaseMap extends Map {
         };
     }
 }
-//# sourceMappingURL=BaseMap.js.map
 
 class MapManager {
     constructor(app) {
@@ -119,7 +117,7 @@ class MapManager {
 let app;
 let mapManager;
 class Game {
-    constructor(el, assetsPath) {
+    constructor({ element, assetsBasePath }) {
         this.setup = () => {
             mapManager = new MapManager(app);
             mapManager.loadMap(new BaseMap());
@@ -134,8 +132,8 @@ class Game {
         this.keyPressed = (e) => {
             mapManager.moveCharacter(e.key);
         };
-        this.el = el;
-        this.assetsPath = assetsPath;
+        this.el = element;
+        this.assetsPath = assetsBasePath;
         this.height = this.el.offsetHeight;
         this.width = this.el.offsetWidth;
         console.log(`Is WebGL supported : ${PIXI.utils.isWebGLSupported()}`);
@@ -174,6 +172,5 @@ class Game {
         });
     }
 }
-//# sourceMappingURL=Game.js.map
 
 export { Game };
